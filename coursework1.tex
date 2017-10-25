@@ -94,15 +94,20 @@ P(Y \mid f)P(f \mid \theta, X)P( \theta) \)\\
 In discrete space, to marginalise some data we need to multiply the data by its probability and add everything together; in continuous space this is done with integration. Marginalising this way allows us to find a distribution for a parameter y over some specific x, without having to take their relationship f into account at all. The uncertainty was initially contained in f, this has filtered through our function to be contained in the distribution y created for every x. We still have theta on the left side of the equation when we?re done; theta is the set of parameters in our covariance function k(X,X); this implies that the covariance function is still relevant to our marginalised belief.
 
 \section*{Question 12}
-
+\subsection In this question we sought to show linear regression. The first plot is our prior over W, it is a simple bivariate gaussian.
 \includegraphics[width=2in,height=1.4in]{prior0} 
+Having picked a data point, namely 0.89, we calculated the posterior distribution over W, you can see the prior over W, the likelihood function and the posterior plotted here.
 \includegraphics[width=2in,height=1.4in]{prior1}
-\includegraphics[width=2in,height=1.4in]{likelihood1}  
+\includegraphics[width=2in,height=1.4in]{likelihood1}
+The graph with a point and a line, shows the point we chose, and a function sampled from the posterior generated. This is repeated for subsequent extra points.
+As more data is added the posterior sampled functions should be more likely to fit the data as a straight line, a line of best fit. For a function that we strongly believe is linear this is desirable behaviour, but if our assumption of linearness is wrong, this would be quite damning.  
 
 \section*{Question 13}
+\subsection For this question we had to create a gp prior using the squared covariance function as its kernel. You cans see the GP we encoded at two different lengthscales below. As the lengthscale is increased the functions sampled become visibly smoother, and closer to linear functions. As such the lengthscale encodes a rough approximator of function complexity.
 
 \section*{Question 14}
-
+\subsection In question 14 we had to compute the predictive posterior distribution of the model using our aforementioned kernel function.First we plotted the given 7 points of data against their noisy function evaluation, and plotted behind it a non-noisy sin curve for comparison. Then we sampled from our calculated posterior all along the axis, both near and far from the data, and plotted it over the original data. As you can see the posterior samples stay fairly close to the original data when near it, but grow largely in variance away from it. This is a good behaviour when function complexity is not well known, but noise is fairly inconsequential. Compared to the prior these samples are extremely jagged, however they better represent the data, as the prior samples were completely irrelevant to the data.
+You can see the plot of the predictive mean and variance below, as you can see variance in the posterior is heavily affected by the presence of real data points, and returns to a uniform gaussian away from them.
 \section*{Question 15}
 \subsection*{Elaborate on the relationship between assumptions and preference}
 The assumption and preference are subtly different ways of expressing a similar idea; which word we choose to use is contextual. Both assumptions and preferences let you create a prior over some data. However, making an assumption over all the data in a generic way is an assumption, but wanting the model to fit a certain distribution and then encoding the prior in this form is a preference - we are saying what we want to see and not what think we'll see. A preference over a variable we don?t care about can be differentiated and encoded to create a prior that marginalises said variable. 
