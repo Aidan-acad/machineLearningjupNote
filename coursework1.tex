@@ -1,0 +1,188 @@
+\documentclass[a4paper, 9pt]{article}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\graphicspath{}
+\usepackage[margin=1in]{geometry}
+\title{Machine Learning Coursework 1}
+\author{Elizabeth Tebbutt , Aidan Ball, Esta Cooksley, Thomas Vaughan}
+\begin{document}
+\maketitle
+\section*{Question 1}
+\subsection*{Why is choosing a Gaussian likelihood a sensible thing to do?}
+If we assume that our two points are iid, thanks to the central limit theorem we know that the average of iid samples from any distribution will follow a Gaussian distribution. Thus we can assume that our curve is Gaussian with a peak somewhere between our two points. We also have to take into account error and in this case the error would be additive; this along with the previous assumptions make using a Gaussian distribution a sensible thing to do.
+It?s also worth noting that Gaussian distributions are easy to work with, as a Gaussian prior also has a Gaussian conjugate and posterior.
+\subsection*{What does it mean that we have chosen a spherical covariance matrix for the likelihood?}
+A covariance matrix is spherical if it is proportional to the identity matrix. By choosing this we are assuming that each parameter has the same variance and there is 0 covariance (everything is independent) because we have no information to predict the relationship between the two. The distribution will show up as a perfect circle in 2D, a sphere in 3D, and so on.
+
+\section*{Question 2}
+\subsection*{If we do not assume that the data points are independent how would the likelihood look?}
+The probability of some three parameters is \( P(x,y,z) \) and if these are independent: \\
+\newline
+\( p(x,y,z)=p(x)p(y)p(z) \) \\
+\newline
+If x and y change with z, \( P(x,y \mid z) \), we can use the product rule to get the following: \\
+\newline
+\( P(x,y,z) = P (x,y \mid z)P(z) \) \\
+\newline
+If x also depends on y, we can iterate again: \\
+\newline
+ \( P(x,y,z) = P(x \mid y,z)P(y \mid z)P(z) \) \\
+ \newline
+For large spaces with many more than three variables the dependencies become very messy and difficult to calculate, as over \( x_{0}...x_{n} \) elements  the number of times we have to apply the chain rule increases exponentially.
+
+\section*{Question 3}
+\subsection*{What is the specific form of the likelihood "above"?}
+\( P( Y \mid X, W) = \prod N(wx, \epsilon) \) \\
+This is true under the assumptions that x and y are iid.
+
+\section*{Question 4}
+\subsection*{Explain the concept of conjugate distributions. Why is this a motivated choice?}
+Bayes theorem takes the form: \\
+\newline
+\( Posterior = \frac{likelihood \times prior}{evidence} \) \\
+\newline
+For some prior, we want the posterior to take the functional form of: \\
+\newline
+\( Posterior \propto likelihood \times prior \) \\
+\newline
+Because the evidence is very difficult to handle. \\
+\newline
+If the posterior is in the same family as the prior, then they are conjugate distributions. Thus, we need a prior which is conjugate to the likelihood, so the posterior and prior take the same form. \\
+Conjugate distributions are very useful as if the posterior and prior are in the same form, we can put the new posterior back into the equation as a new prior, and iterate to improve the model very quickly and analysis is considerably simplified.
+
+\section*{Question 5}
+\subsection*{\( L_{1} \) vs \( L_{2} \) when encoding the preference}
+An L1-norm loss function, known as least absolute deviations or least absolute errors, basically minimises the sum of the absolute differences between the target value and the estimated value. L2-norm functions, known as least squares error, minimise the sum of the square of the differences between the target value and estimated value. The fundamental difference between the two is the square! 
+For a spherical distribution, the L2 norm is just a straight line - there is only one solution. However, the L1 distribution may have multiple solutions.
+
+\section*{Question 6}
+\subsection*{Deriving the posterior over the parameters}
+The posterior, \( (x \mid y, x) \propto prior \times likelihood \). Our prior is \( N(w_{0} ,\tau^{2} I) \), and our likelihood was defined in question 3. Thus to get our posterior \( N(w', a) \) we multiply the exponential forms of these together and simplify to reach Gaussian form, the exponent of this will reach a form A+B+C, where A is a constant term, B is a mixed term, and C has a quadratic in the parameters. We can then extract the mean from B by completing the square, then we use the schur complement to extract the variance from the entire exponent. The Z term normalises the function so that it becomes a distribution, i.e. sums to 1.  \\
+This can be visualised as a line between the two means on a graph, example on the final page of my notebook.
+
+\section*{Question 7}
+\subsection*{What is a non-parametric model. What is the difference between parametric and non parametric models?}
+Parametric models assume that our parameters are finite in number; this inherently bounds the complexity of the model even if the amount of data provided is unbounded. This means they lack flexibility! However, they?re easier to interpret as they?re generally much simpler models. \\
+Non-parametric models assume that the data distribution cannot be defined by a finite set of parameters; instead they are defined assuming an infinite dimensional dataset. The amount of data this model can capture increases as the quantity of data does, which makes them much more flexible. They are harder to interpret than parametric models, as it is over infinite space so cannot always be expressed. 
+
+\section*{Question 8}
+\subsection*{Explain what "this" prior represents and how it places structure on the space of the functions.}
+This prior states that we have a Gaussian distribution with mean 0 and a variance which is a function of X, which implies the variance changes with X and only with X. As the number of possible values of X is infinite, then the space the variance can cover is also infinite. If we assume nothing about X the variance encodes the data directly, while if we make an assumption this prior would reach the correct model very quickly.
+
+\section*{Question 9}
+\subsection*{Does "this" prior encode all possible functions or only a subset?}
+This prior encodes all possible functions as a Gaussian never reaches 0, and both the variance and the model itself are Gaussian. Thus every single function can be represented, as the model covers infinite horizontal space and the variance covers infinite vertical space.
+
+\section*{Question 10}
+\subsection*{Formulating the joint distribution.}
+Assuming the data is iid \\
+\newline
+Assuming a prior over the function, \( p (f \mid \theta) \), and a prior over the parameters, \(p(\theta ) \) \\
+\newline
+\( P(Y, X, f, \theta) = P(Y \mid X, f, \theta) \\
+\newline
+P(Y \mid f)P(f \mid \theta, X)P( \theta) \)\\
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.6in,height=0.8in]{path} 
+\end{center}
+\caption{Graphical Model}
+\end{figure}
+
+\section*{Question 11}
+\subsection*{Explain the marginalisation in Eq.1.1.2}
+In discrete space, to marginalise some data we need to multiply the data by its probability and add everything together; in continuous space this is done with integration. Marginalising this way allows us to find a distribution for a parameter y over some specific x, without having to take their relationship f into account at all. The uncertainty was initially contained in f, this has filtered through our function to be contained in the distribution y created for every x. We still have theta on the left side of the equation when we?re done; theta is the set of parameters in our covariance function k(X,X); this implies that the covariance function is still relevant to our marginalised belief.
+
+\section*{Question 12}
+
+\includegraphics[width=2in,height=1.4in]{prior0} 
+\includegraphics[width=2in,height=1.4in]{prior1}
+\includegraphics[width=2in,height=1.4in]{likelihood1}  
+
+\section*{Question 13}
+
+\section*{Question 14}
+
+\section*{Question 15}
+\subsection*{Elaborate on the relationship between assumptions and preference}
+The assumption and preference are subtly different ways of expressing a similar idea; which word we choose to use is contextual. Both assumptions and preferences let you create a prior over some data. However, making an assumption over all the data in a generic way is an assumption, but wanting the model to fit a certain distribution and then encoding the prior in this form is a preference - we are saying what we want to see and not what think we'll see. A preference over a variable we don?t care about can be differentiated and encoded to create a prior that marginalises said variable. 
+
+\section*{Question 16}
+\subsection*{What is the assumption/preference encoded with the prior?}
+The latent variables are only implied and not actually encoded in the data explicitly, instead they are used to reduce the dimensionality of the data. It is in our best interests to keep this as simple as possible, thus we choose to assume that there that our latent variables are independent (have no covariance), vary equally, and have a mean of 0.
+
+\section*{Question 17}
+
+\section*{Question 18}
+\subsection{How do the ML, ML-type II and MAP differ}
+The maximum likelihood allows us to formulate and maximise the likelihood of the data by finding parameters. \\
+Type II maximum likelihood is an expansion on ML which requires us to first integrate out either the weights of the mapping or the latent representation; then maximise the remaining variables; essentially applying Bayes on half of the probability to allow us to optimise that half while ignoring the other. Type II maximum likelihood is used for unsupervised learning problems, as they?re just too complex to use MAP on. \\
+Maximum-a-posteriori estimations require us to maximise the posterior rather than the likelihood, which requires the addition of a prior distribution; thus MAP estimation can be viewed as a regularisation of ML estimation. \\
+The difference between the three is the expression they maximise; the ML maximises the likelihood, type-II ML maximises a marginal, and MAP maximises the posterior. 
+\subsection*{How do MAP and ML differ when we observe more data?}
+The main difference for large datasets is that the MAP result will be influenced by a prior while the ML estimation will only be based on the data - provided our prior is good, MAP will generally give us a slightly better result. 
+\subsection*{Why are the two expressions in Eq. 8 equal?}
+he expressions are equal as the integration in the denominator integrates to 1; this is because marginalising out W gives us the probability of every possible occurrence, which is obviously 1.
+
+\section*{Question 19}
+The objective function is: \\
+\( \mathcal{L} (\mathbf{W}) = constant + log\mid \mathbf{C}(\mathbf{W})\mid + \sum\limits_{i}^N y_{i}^{T}(\mathbf{C}(\mathbf{W}))^{-1} y_{i} \) \\
+\newline
+To simplify the derivation, we need to remove the sum, we can do this by changing L(W) to matrix form. \\
+
+\( \sum\limits_i x_{i}x_{i} = tr([\leftarrow x_{1} \rightarrow.........\leftarrow x_{N} \rightarrow][\leftarrow x_{1} \rightarrow.........\leftarrow x_{N} \rightarrow]^{T}) \) \\
+\newline
+As such the equation can be rewritten: \\ 
+
+\( \mathcal{L}(\mathbf{W}) = constant + log\mid \mathbf{C}(\mathbf{W})\mid + tr(Y(\mathbf{C}(\mathbf{W}))^{-1}Y^T) \) \\
+\newline
+C is a principle component of the equation, so we need to know how to derive it.\\
+
+\( \frac{\delta C}{\delta W_{ij}} = \frac{\delta WW^T}{\delta W_{ij}} \) \\
+\newline
+Using Matrix Cookbook, which are just matrix rules, we can get the following derivative: \\ 
+
+\( \frac{\delta WW^T}{\delta W_{ij}} = W\frac{\delta W^T}{\delta W_{ij}} + \frac{\delta W}{\delta W_{ij}} W^T = WJ_{ij}W^T \) \\
+
+Where \( J_{ij} \) is a matrix where all entries are zero apart from at ij \\
+\newline
+Now we just need to derive the remaining terms: \\
+
+\( \frac{\delta}{\delta W_{ij}} Log \mid C \mid \) \\
+\newline
+Using more rules \\
+
+\( \frac{\delta}{\delta W_{ij}} Log \mid C \mid = tr(C^{-1} \frac{\delta C}{\delta W_{ij}} \) \\
+\newline
+Now for the second term: \\
+
+\( tr(Y (\mathbf{C}(\mathbf{W})^{-1}Y^T) \) \\
+\newline
+This becomes: \\
+
+\( tr(\frac{\delta}{\delta W_{ij}} Y(C)^{-1}Y^T) \) \\
+\newline
+Now we can use the chain rule to break the quadratic form: \\
+
+\( tr(\frac{\delta}{\delta W_{ij}} Y(C)^{-1}Y^T) = tr(\frac{\delta}{\delta C} (Y(C)^{-1}Y^T) \frac{\delta C^{-1}}{\delta W_{ij}} ) \) \\
+\newline
+Now we have the derivative all alone, so: \\ 
+
+\( tr(Y Y^T \frac{\delta C^{-1}}{\delta W_{ij}}) = tr(Y Y^T ( -C^{-1} \frac{\delta C}{\delta W_{ij}} C^{-1})) \)
+
+\section*{Question 20}
+\subsection*{Why is the marginalisation of f simpler to do than marginalise out X}
+It?s easier to marginalise f because f is only depended on by y, while x is depended on by f and y which makes the calculation much messier. F just contains the uncertainty, which when we marginalise it filters through the rest of the equation. (Refer to Fig .1 in Question 10)
+
+\section*{Question 21}
+
+\section*{Question 22}
+\subsection*{Why is it the simplest model and what does it imply?}
+This assumption implies that each of the 512 elements have an equal probability of occurring.
+This is the simplest possible model because we?re just assuming that none of the elements are unique, all of them have the exact same probability of occurring and thus our calculation ought to be simple.
+\subsection*{Why is it the most complex model?}
+
+
+
+
+\end{document}
