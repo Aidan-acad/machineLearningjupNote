@@ -57,7 +57,7 @@ For a spherical distribution, the L2 norm is just a straight line - there is onl
 
 \section*{Question 6}
 \subsection*{Deriving the posterior over the parameters}
-The posterior, \( (x \mid y, x) \propto prior \times likelihood \). Our prior is \( N(w_{0} ,\tau^{2} I) \), and our likelihood was defined in question 3. Thus to get our posterior \( N(w', a) \) we multiply the exponential forms of these together and simplify to reach Gaussian form, the exponent of this will reach a form A+B+C, where A is a constant term, B is a mixed term, and C has a quadratic in the parameters. We can then extract the mean from B by completing the square, then we use the schur complement to extract the variance from the entire exponent. The Z term normalises the function so that it becomes a distribution, i.e. sums to 1.  \\
+The posterior takes the form, \( (W \mid X, Y) \propto P(Y \mid W, X) \times P(W) \). Our prior is \( N(w_{0} ,\tau^{2} I) \), and our likelihood was defined in question 3. Thus to get our posterior \( N(w', a) \) we multiply the exponential forms of these together and simplify to reach Gaussian form, the exponent of this will reach a form A+B+C, where A is a constant term, B is a mixed term, and C has a quadratic in the parameters. We can then extract the mean from B by completing the square, then we use the schur complement to extract the variance from the entire exponent. The Z term normalises the function so that it becomes a distribution, i.e. sums to 1.  \\
 This can be visualised as a line between the two means on a graph, example on the final page of my notebook.
 
 \section*{Question 7}
@@ -112,9 +112,23 @@ The assumption and preference are subtly different ways of expressing a similar 
 The latent variables are only implied and not actually encoded in the data explicitly, instead they are used to reduce the dimensionality of the data. It is in our best interests to keep this as simple as possible, thus we choose to assume that there that our latent variables are independent (have no covariance), vary equally, and have a mean of 0.
 
 \section*{Question 17}
+\subsection*{Perform the marginalisation.}
+Our prior is \( p(x) = N (0, I) \). We know that our y is some distribution over x plus some error so \\
+
+ \( y = f(x) + \epsilon \) \\
+ 
+ If we assume our distribution is linear, we can say that \( f(x) = wx \), so \( y = wx + \epsilon \). \\
+As the only term in y that varies is \( \epsilon \) we know that our mean is wx, thus we can derive a Gaussian as follows : \\
+
+\( N (wx, \epsilon) \) \\
+
+As we have already assumed that out error is a spherical matrix we know that it is something proportional to the identity matrix, so we can say it is \( \sigma^2 I \). \\
+Now we can formulate this with the Gaussian identitiy, from figure 2.116 in Pattern Recognition and Machine Learning, to form the prior with x being marginalised: \\
+
+\( P(Y \mid W) = \int N(wx, \sigma^2) N(0, I) = N(0, \sigma^2 I + WW^T) \) 
 
 \section*{Question 18}
-\subsection{How do the ML, ML-type II and MAP differ}
+\subsection*{How do the ML, ML-type II and MAP differ}
 The maximum likelihood allows us to formulate and maximise the likelihood of the data by finding parameters. \\
 Type II maximum likelihood is an expansion on ML which requires us to first integrate out either the weights of the mapping or the latent representation; then maximise the remaining variables; essentially applying Bayes on half of the probability to allow us to optimise that half while ignoring the other. Type II maximum likelihood is used for unsupervised learning problems, as they?re just too complex to use MAP on. \\
 Maximum-a-posteriori estimations require us to maximise the posterior rather than the likelihood, which requires the addition of a prior distribution; thus MAP estimation can be viewed as a regularisation of ML estimation. \\
