@@ -10,8 +10,11 @@
 \maketitle
 \section*{Question 1}
 \subsection*{Why is choosing a Gaussian likelihood a sensible thing to do?}
-If we assume that our two points are iid, thanks to the central limit theorem we know that the average of iid samples from any distribution will follow a Gaussian distribution. Thus we can assume that our curve is Gaussian with a peak somewhere between our two points. We also have to take into account error and in this case the error would be additive; this along with the previous assumptions make using a Gaussian distribution a sensible thing to do.
-It?s also worth noting that Gaussian distributions are easy to work with, as a Gaussian prior also has a Gaussian conjugate and posterior.
+If we assume that our two points are iid, thanks to the central limit theorem we know that the average of iid samples from any distribution will follow a Gaussian distribution with the mean tending towards the mean of the sample population. Thus we can assume that our curve is Gaussian with a peak at the mean, which would be the mapping over x as without error this is what we would pick to be most likely as the outcome. It does not vary if we are assuming the mapping is linear. We have to take into account error, which can vary, and in this case the error would be additive; this makes it sensible to be the variance. This along with the fact that our mean is the mapping over x means that we can use the Gaussian distribution: \\
+
+\( N(f(x_i), \sigma^2 \mathbf{I} ) \) \\
+
+It's also worth noting that Gaussian distributions are easy to work with, as a Gaussian prior also has a Gaussian conjugate and posterior.
 \subsection*{What does it mean that we have chosen a spherical covariance matrix for the likelihood?}
 A covariance matrix is spherical if it is proportional to the identity matrix. By choosing this we are assuming that each parameter has the same variance and there is 0 covariance (everything is independent) because we have no information to predict the relationship between the two. The distribution will show up as a perfect circle in 2D, a sphere in 3D, and so on.
 
@@ -243,7 +246,8 @@ This assumption implies that each of the 512 elements have an equal probability 
 This is the simplest possible model because we?re just assuming that none of the elements are unique, all of them have the exact same probability of occurring and thus our calculation ought to be simple.
 \subsection*{Why is it the most complex model?}
 
-
-
+\section*{Question 30}
+\subsection*{What have we learnt?}
+This coursework has given us a hands on approach to machine learning where so we can understand some of the core concepts at more than a purely abstract level. We have learnt about both parametric and non-parametric models and in what scenarios to apply them. 
 
 \end{document}
