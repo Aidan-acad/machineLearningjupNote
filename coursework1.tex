@@ -1,12 +1,15 @@
 \documentclass[a4paper, 9pt]{article}
+\usepackage{nips15submit_e}
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{float}
 \graphicspath{}
 \usepackage[margin=1in]{geometry}
 \title{Machine Learning Coursework 1}
-\author{Elizabeth Tebbutt (et15611), Aidan Ball (ab15100), \\
-Esta Cooksley (ec15201), Thomas Vaughan (tv15461)}
+\author{
+    Elizabeth Tebbutt (et15611), Aidan Ball (ab15100),
+    \And Esta Cooksley (ec15201), Tom Vaughan (tv15461)
+}
 \begin{document}
 \maketitle
 \section*{Question 1}
@@ -57,7 +60,7 @@ Conjugate distributions are very useful as if the posterior and prior are in the
 
 \section*{Question 5}
 \subsection*{\( L_{1} \) vs \( L_{2} \) when encoding the preference}
-An L1-norm loss function, known as least absolute deviations or least absolute errors, basically minimises the sum of the absolute differences between the target value and the estimated value. L2-norm functions, known as least squares error, minimise the sum of the square of the differences between the target value and estimated value. The fundamental difference between the two is the square! 
+An L1-norm loss function, known as least absolute deviations or least absolute errors, basically minimises the sum of the absolute differences between the target value and the estimated value. L2-norm functions, known as least squares error, minimise the sum of the square of the differences between the target value and estimated value. The fundamental difference between the two is the square!
 For a spherical distribution, the L2 norm is just a straight line - there is only one solution. However, the L1 distribution may have multiple solutions.
 
 \section*{Question 6}
@@ -68,7 +71,7 @@ This can be visualised as a line between the two means on a graph, example on th
 \section*{Question 7}
 \subsection*{What is a non-parametric model. What is the difference between parametric and non parametric models?}
 Parametric models assume that our parameters are finite in number; this inherently bounds the complexity of the model even if the amount of data provided is unbounded. This means they lack flexibility! However, they?re easier to interpret as they?re generally much simpler models. \\
-Non-parametric models assume that the data distribution cannot be defined by a finite set of parameters; instead they are defined assuming an infinite dimensional dataset. The amount of data this model can capture increases as the quantity of data does, which makes them much more flexible. They are harder to interpret than parametric models, as it is over infinite space so cannot always be expressed. 
+Non-parametric models assume that the data distribution cannot be defined by a finite set of parameters; instead they are defined assuming an infinite dimensional dataset. The amount of data this model can capture increases as the quantity of data does, which makes them much more flexible. They are harder to interpret than parametric models, as it is over infinite space so cannot always be expressed.
 
 \section*{Question 8}
 \subsection*{Explain what "this" prior represents and how it places structure on the space of the functions.}
@@ -89,7 +92,7 @@ Assuming a prior over the function, \( p (f \mid \theta) \), and a prior over th
 P(Y \mid f)P(f \mid \theta, X)P( \theta) \)\\
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.6in,height=0.8in]{path} 
+\includegraphics[width=0.6in,height=0.8in]{path}
 \end{center}
 \caption{Graphical Model}
 \end{figure}
@@ -106,7 +109,7 @@ The first plot is our prior over W, it is a simple bivariate gaussian.\\
 \includegraphics[width=1.8in,height=1.15in]{posterior0} \\
 \end{center}
 \caption{Prior over W}
-\end{figure} 
+\end{figure}
 Having picked a data point, namely 0.89, we calculated the posterior distribution over W, you can see the prior over W and the posterior plotted here. We took a sample size of 1 over the functions.\\
 \newline
 \begin{figure}[H]
@@ -132,13 +135,13 @@ Having picked a data point, namely 0.89, we calculated the posterior distributio
 \end{figure}
 
 The graph with a point and a line, shows the point we chose, and a function sampled from the posterior generated. This is repeated for subsequent extra points.
-As more data is added the posterior sampled functions becomes more likely to fit the data as a straight line, a line of best fit, which we an see happening in the figures. For a function that we strongly believe is linear this is desirable behaviour, but if our assumption of linear-ness is wrong, this would be quite damning.  
+As more data is added the posterior sampled functions becomes more likely to fit the data as a straight line, a line of best fit, which we an see happening in the figures. For a function that we strongly believe is linear this is desirable behaviour, but if our assumption of linear-ness is wrong, this would be quite damning.
 
 \section*{Question 13}
 For this question we had to create a gp prior using the squared covariance function as its kernel. You can see the GP we encoded at three different lengthscales below. As the lengthscale is increased the functions sampled become visibly smoother, and closer to linear functions. As such the lengthscale encodes a rough approximator of function complexity.\\
 \newline
 \includegraphics[width=2in,height=1.4in]{lines1}
-\includegraphics[width=2in,height=1.4in]{lines2} 
+\includegraphics[width=2in,height=1.4in]{lines2}
 \includegraphics[width=2in,height=1.4in]{lines3} \\
 
 \section*{Question 14}
@@ -148,12 +151,12 @@ This is a good behaviour when function complexity is not well known, but noise i
 You can see the plot of the predictive mean and variance below, as you can see variance in the posterior is heavily affected by the presence of real data points, and returns to a uniform gaussian away from them. \\
 \newline
 \includegraphics[width=2in,height=1.4in]{curve1}
-\includegraphics[width=2in,height=1.4in]{curve2} 
+\includegraphics[width=2in,height=1.4in]{curve2}
 \includegraphics[width=2in,height=1.4in]{curve3} \\
 
 \section*{Question 15}
 \subsection*{Elaborate on the relationship between assumptions and preference}
-The assumption and preference are subtly different ways of expressing a similar idea; which word we choose to use is contextual. Both assumptions and preferences let you create a prior over some data. However, making an assumption over all the data in a generic way is an assumption, but wanting the model to fit a certain distribution and then encoding the prior in this form is a preference - we are saying what we want to see and not what think we'll see. A preference over a variable we don?t care about can be differentiated and encoded to create a prior that marginalises said variable. 
+The assumption and preference are subtly different ways of expressing a similar idea; which word we choose to use is contextual. Both assumptions and preferences let you create a prior over some data. However, making an assumption over all the data in a generic way is an assumption, but wanting the model to fit a certain distribution and then encoding the prior in this form is a preference - we are saying what we want to see and not what think we'll see. A preference over a variable we don?t care about can be differentiated and encoded to create a prior that marginalises said variable.
 
 \section*{Question 16}
 \subsection*{What is the assumption/preference encoded with the prior?}
@@ -164,7 +167,7 @@ The latent variables are only implied and not actually encoded in the data expli
 Our prior is \( p(x) = N (0, I) \). We know that our y is some distribution over x plus some error so \\
 
  \( y = f(x) + \epsilon \) \\
- 
+
  If we assume our distribution is linear, we can say that \( f(x) = wx \), so \( y = wx + \epsilon \). \\
 As the only term in y that varies is \( \epsilon \) we know that our mean is wx, thus we can derive a Gaussian as follows : \\
 
@@ -173,16 +176,16 @@ As the only term in y that varies is \( \epsilon \) we know that our mean is wx,
 As we have already assumed that out error is a spherical matrix we know that it is something proportional to the identity matrix, so we can say it is \( \sigma^2 I \). \\
 Now we can formulate this with some Gaussian identities to form the prior with x being marginalised: \\
 
-\( P(Y \mid W) = \int N(wx, \sigma^2) N(0, I) = N(0, \sigma^2 I + WW^T) \) 
+\( P(Y \mid W) = \int N(wx, \sigma^2) N(0, I) = N(0, \sigma^2 I + WW^T) \)
 
 \section*{Question 18}
 \subsection*{How do the ML, ML-type II and MAP differ}
 The maximum likelihood allows us to formulate and maximise the likelihood of the data by finding parameters. \\
 Type II maximum likelihood is an expansion on ML which requires us to first integrate out either the weights of the mapping or the latent representation; then maximise the remaining variables; essentially applying Bayes on half of the probability to allow us to optimise that half while ignoring the other. Type II maximum likelihood is used for unsupervised learning problems, as they?re just too complex to use MAP on. \\
 Maximum-a-posteriori estimations require us to maximise the posterior rather than the likelihood, which requires the addition of a prior distribution; thus MAP estimation can be viewed as a regularisation of ML estimation. \\
-The difference between the three is the expression they maximise; the ML maximises the likelihood, type-II ML maximises a marginal, and MAP maximises the posterior. 
+The difference between the three is the expression they maximise; the ML maximises the likelihood, type-II ML maximises a marginal, and MAP maximises the posterior.
 \subsection*{How do MAP and ML differ when we observe more data?}
-The main difference for large datasets is that the MAP result will be influenced by a prior while the ML estimation will only be based on the data - provided our prior is good, MAP will generally give us a slightly better result. 
+The main difference for large datasets is that the MAP result will be influenced by a prior while the ML estimation will only be based on the data - provided our prior is good, MAP will generally give us a slightly better result.
 \subsection*{Why are the two expressions in Eq. 8 equal?}
 he expressions are equal as the integration in the denominator integrates to 1; this is because marginalising out W gives us the probability of every possible occurrence, which is obviously 1.
 
@@ -194,7 +197,7 @@ To simplify the derivation, we need to remove the sum, we can do this by changin
 
 \( \sum\limits_i x_{i}x_{i} = tr([\leftarrow x_{1} \rightarrow.........\leftarrow x_{N} \rightarrow][\leftarrow x_{1} \rightarrow.........\leftarrow x_{N} \rightarrow]^{T}) \) \\
 \newline
-As such the equation can be rewritten: \\ 
+As such the equation can be rewritten: \\
 
 \( \mathcal{L}(\mathbf{W}) = constant + log\mid \mathbf{C}(\mathbf{W})\mid + tr(Y(\mathbf{C}(\mathbf{W}))^{-1}Y^T) \) \\
 \newline
@@ -202,7 +205,7 @@ C is a principle component of the equation, so we need to know how to derive it.
 
 \( \frac{\delta C}{\delta W_{ij}} = \frac{\delta WW^T}{\delta W_{ij}} \) \\
 \newline
-Using Matrix Cookbook, which are just matrix rules, we can get the following derivative: \\ 
+Using Matrix Cookbook, which are just matrix rules, we can get the following derivative: \\
 
 \( \frac{\delta WW^T}{\delta W_{ij}} = W\frac{\delta W^T}{\delta W_{ij}} + \frac{\delta W}{\delta W_{ij}} W^T = WJ_{ij}W^T \) \\
 
@@ -228,7 +231,7 @@ Now we can use the chain rule to break the quadratic form: \\
 
 \( tr(\frac{\delta}{\delta W_{ij}} Y(C)^{-1}Y^T) = tr(\frac{\delta}{\delta C} (Y(C)^{-1}Y^T) \frac{\delta C^{-1}}{\delta W_{ij}} ) \) \\
 \newline
-Now we have the derivative all alone, so: \\ 
+Now we have the derivative all alone, so: \\
 
 \( tr(Y Y^T \frac{\delta C^{-1}}{\delta W_{ij}}) = tr(Y Y^T ( -C^{-1} \frac{\delta C}{\delta W_{ij}} C^{-1})) \)
 
