@@ -1,6 +1,7 @@
 \documentclass[a4paper, 9pt]{article}
 \usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{float}
 \graphicspath{}
 \usepackage[margin=1in]{geometry}
 \title{Machine Learning Coursework 1}
@@ -57,7 +58,7 @@ For a spherical distribution, the L2 norm is just a straight line - there is onl
 
 \section*{Question 6}
 \subsection*{Deriving the posterior over the parameters}
-The posterior, \( (x \mid y, x) \propto prior \times likelihood \). Our prior is \( N(w_{0} ,\tau^{2} I) \), and our likelihood was defined in question 3. Thus to get our posterior \( N(w', a) \) we multiply the exponential forms of these together and simplify to reach Gaussian form, the exponent of this will reach a form A+B+C, where A is a constant term, B is a mixed term, and C has a quadratic in the parameters. We can then extract the mean from B by completing the square, then we use the schur complement to extract the variance from the entire exponent. The Z term normalises the function so that it becomes a distribution, i.e. sums to 1.  \\
+The posterior takes the form, \( (W \mid X, Y) \propto P(Y \mid W, X) \times P(W) \). Our prior is \( N(w_{0} ,\tau^{2} I) \), and our likelihood was defined in question 3. Thus to get our posterior \( N(w', a) \) we multiply the exponential forms of these together and simplify to reach Gaussian form, the exponent of this will reach a form A+B+C, where A is a constant term, B is a mixed term, and C has a quadratic in the parameters. We can then extract the mean from B by completing the square, then we use the schur complement to extract the variance from the entire exponent. The Z term normalises the function so that it becomes a distribution, i.e. sums to 1.  \\
 This can be visualised as a line between the two means on a graph, example on the final page of my notebook.
 
 \section*{Question 7}
@@ -93,21 +94,62 @@ P(Y \mid f)P(f \mid \theta, X)P( \theta) \)\\
 \subsection*{Explain the marginalisation in Eq.1.1.2}
 In discrete space, to marginalise some data we need to multiply the data by its probability and add everything together; in continuous space this is done with integration. Marginalising this way allows us to find a distribution for a parameter y over some specific x, without having to take their relationship f into account at all. The uncertainty was initially contained in f, this has filtered through our function to be contained in the distribution y created for every x. We still have theta on the left side of the equation when we?re done; theta is the set of parameters in our covariance function k(X,X); this implies that the covariance function is still relevant to our marginalised belief.
 
+\pagebreak
+
 \section*{Question 12}
-\subsection In this question we sought to show linear regression. The first plot is our prior over W, it is a simple bivariate gaussian.
-\includegraphics[width=2in,height=1.4in]{prior0} 
-Having picked a data point, namely 0.89, we calculated the posterior distribution over W, you can see the prior over W, the likelihood function and the posterior plotted here.
-\includegraphics[width=2in,height=1.4in]{prior1}
-\includegraphics[width=2in,height=1.4in]{likelihood1}
+The first plot is our prior over W, it is a simple bivariate gaussian.\\
+\newline
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.8in,height=1.15in]{posterior0} \\
+\end{center}
+\caption{Prior over W}
+\end{figure} 
+Having picked a data point, namely 0.89, we calculated the posterior distribution over W, you can see the prior over W and the posterior plotted here. We took a sample size of 1 over the functions.\\
+\newline
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.8in,height=1.15in]{posterior1}
+\includegraphics[width=1.8in,height=1.15in]{data1} \\
+\end{center}
+\caption{Posterior and Function after 1 Data Point}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.8in,height=1.15in]{posterior2}
+\includegraphics[width=1.8in,height=1.15in]{data2} \\
+\end{center}
+\caption{Posterior and Function after 2 Data Points}
+\end{figure}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=1.8in,height=1.15in]{posterior3}
+\includegraphics[width=1.8in,height=1.15in]{data3} \\
+\end{center}
+\caption{Posterior and Function after 3 Data Points}
+\end{figure}
+
+\pagebreak
 The graph with a point and a line, shows the point we chose, and a function sampled from the posterior generated. This is repeated for subsequent extra points.
-As more data is added the posterior sampled functions should be more likely to fit the data as a straight line, a line of best fit. For a function that we strongly believe is linear this is desirable behaviour, but if our assumption of linearness is wrong, this would be quite damning.  
+As more data is added the posterior sampled functions becomes more likely to fit the data as a straight line, a line of best fit, which we an see happening in the figures. For a function that we strongly believe is linear this is desirable behaviour, but if our assumption of linear-ness is wrong, this would be quite damning.  
 
 \section*{Question 13}
-\subsection For this question we had to create a gp prior using the squared covariance function as its kernel. You cans see the GP we encoded at two different lengthscales below. As the lengthscale is increased the functions sampled become visibly smoother, and closer to linear functions. As such the lengthscale encodes a rough approximator of function complexity.
+For this question we had to create a gp prior using the squared covariance function as its kernel. You can see the GP we encoded at three different lengthscales below. As the lengthscale is increased the functions sampled become visibly smoother, and closer to linear functions. As such the lengthscale encodes a rough approximator of function complexity.\\
+\newline
+\includegraphics[width=2in,height=1.4in]{lines1}
+\includegraphics[width=2in,height=1.4in]{lines2} 
+\includegraphics[width=2in,height=1.4in]{lines3} \\
 
 \section*{Question 14}
-\subsection In question 14 we had to compute the predictive posterior distribution of the model using our aforementioned kernel function.First we plotted the given 7 points of data against their noisy function evaluation, and plotted behind it a non-noisy sin curve for comparison. Then we sampled from our calculated posterior all along the axis, both near and far from the data, and plotted it over the original data. As you can see the posterior samples stay fairly close to the original data when near it, but grow largely in variance away from it. This is a good behaviour when function complexity is not well known, but noise is fairly inconsequential. Compared to the prior these samples are extremely jagged, however they better represent the data, as the prior samples were completely irrelevant to the data.
-You can see the plot of the predictive mean and variance below, as you can see variance in the posterior is heavily affected by the presence of real data points, and returns to a uniform gaussian away from them.
+In question 14 we had to compute the predictive posterior distribution of the model using our aforementioned kernel function.
+First we plotted the given 7 points of data against their noisy function evaluation, and plotted behind it a non-noisy sin curve for comparison. Then we sampled from our calculated posterior all along the axis, both near and far from the data, and plotted it over the original data. As you can see the posterior samples stay fairly close to the original data when near it, but grow largely in variance away from it. \\
+This is a good behaviour when function complexity is not well known, but noise is fairly inconsequential. Compared to the prior these samples are extremely jagged, however they better represent the data, as the prior samples were completely irrelevant to the data. \\
+You can see the plot of the predictive mean and variance below, as you can see variance in the posterior is heavily affected by the presence of real data points, and returns to a uniform gaussian away from them. \\
+\newline
+\includegraphics[width=2in,height=1.4in]{curve1}
+\includegraphics[width=2in,height=1.4in]{curve2} 
+\includegraphics[width=2in,height=1.4in]{curve3} \\
+
 \section*{Question 15}
 \subsection*{Elaborate on the relationship between assumptions and preference}
 The assumption and preference are subtly different ways of expressing a similar idea; which word we choose to use is contextual. Both assumptions and preferences let you create a prior over some data. However, making an assumption over all the data in a generic way is an assumption, but wanting the model to fit a certain distribution and then encoding the prior in this form is a preference - we are saying what we want to see and not what think we'll see. A preference over a variable we don?t care about can be differentiated and encoded to create a prior that marginalises said variable. 
@@ -117,9 +159,23 @@ The assumption and preference are subtly different ways of expressing a similar 
 The latent variables are only implied and not actually encoded in the data explicitly, instead they are used to reduce the dimensionality of the data. It is in our best interests to keep this as simple as possible, thus we choose to assume that there that our latent variables are independent (have no covariance), vary equally, and have a mean of 0.
 
 \section*{Question 17}
+\subsection*{Perform the marginalisation.}
+Our prior is \( p(x) = N (0, I) \). We know that our y is some distribution over x plus some error so \\
+
+ \( y = f(x) + \epsilon \) \\
+ 
+ If we assume our distribution is linear, we can say that \( f(x) = wx \), so \( y = wx + \epsilon \). \\
+As the only term in y that varies is \( \epsilon \) we know that our mean is wx, thus we can derive a Gaussian as follows : \\
+
+\( N (wx, \epsilon) \) \\
+
+As we have already assumed that out error is a spherical matrix we know that it is something proportional to the identity matrix, so we can say it is \( \sigma^2 I \). \\
+Now we can formulate this with the Gaussian identitiy, from figure 2.116 in Pattern Recognition and Machine Learning, to form the prior with x being marginalised: \\
+
+\( P(Y \mid W) = \int N(wx, \sigma^2) N(0, I) = N(0, \sigma^2 I + WW^T) \) 
 
 \section*{Question 18}
-\subsection{How do the ML, ML-type II and MAP differ}
+\subsection*{How do the ML, ML-type II and MAP differ}
 The maximum likelihood allows us to formulate and maximise the likelihood of the data by finding parameters. \\
 Type II maximum likelihood is an expansion on ML which requires us to first integrate out either the weights of the mapping or the latent representation; then maximise the remaining variables; essentially applying Bayes on half of the probability to allow us to optimise that half while ignoring the other. Type II maximum likelihood is used for unsupervised learning problems, as they?re just too complex to use MAP on. \\
 Maximum-a-posteriori estimations require us to maximise the posterior rather than the likelihood, which requires the addition of a prior distribution; thus MAP estimation can be viewed as a regularisation of ML estimation. \\
