@@ -97,8 +97,6 @@ P(Y \mid f)P(f \mid \theta, X)P( \theta) \)\\
 \subsection*{Explain the marginalisation in Eq.1.1.2}
 In discrete space, to marginalise some data we need to multiply the data by its probability and add everything together; in continuous space this is done with integration. Marginalising this way allows us to find a distribution for a parameter y over some specific x, without having to take their relationship f into account at all. The uncertainty was initially contained in f, this has filtered through our function to be contained in the distribution y created for every x. We still have theta on the left side of the equation when we?re done; theta is the set of parameters in our covariance function k(X,X); this implies that the covariance function is still relevant to our marginalised belief.
 
-\pagebreak
-
 \section*{Question 12}
 The first plot is our prior over W, it is a simple bivariate gaussian.\\
 \newline
@@ -132,7 +130,6 @@ Having picked a data point, namely 0.89, we calculated the posterior distributio
 \caption{Posterior and Function after 3 Data Points}
 \end{figure}
 
-\pagebreak
 The graph with a point and a line, shows the point we chose, and a function sampled from the posterior generated. This is repeated for subsequent extra points.
 As more data is added the posterior sampled functions becomes more likely to fit the data as a straight line, a line of best fit, which we an see happening in the figures. For a function that we strongly believe is linear this is desirable behaviour, but if our assumption of linear-ness is wrong, this would be quite damning.  
 
@@ -236,14 +233,14 @@ Now we have the derivative all alone, so: \\
 
 \section*{Question 20}
 \subsection*{Why is the marginalisation of f simpler to do than marginalise out X}
-It?s easier to marginalise f because f is only depended on by y, while x is depended on by f and y which makes the calculation much messier. F just contains the uncertainty, which when we marginalise it filters through the rest of the equation. (Refer to Fig .1 in Question 10)
+It's easier to marginalise f because f is only depended on by y, while x is depended on by f and y which makes the calculation much messier. F just contains the uncertainty, which when we marginalise it filters through the rest of the equation. (Refer to Fig .1 in Question 10)
 
 \section*{Question 21}
 
 \section*{Question 22}
 \subsection*{Why is it the simplest model and what does it imply?}
 This assumption implies that each of the 512 elements have an equal probability of occurring.
-This is the simplest possible model because we?re just assuming that none of the elements are unique, all of them have the exact same probability of occurring and thus our calculation ought to be simple.
+This is the simplest possible model because we're just assuming that none of the elements are unique, all of them have the exact same probability of occurring and thus our calculation ought to be simple.
 \subsection*{Why is it the most complex model?}
 
 \section*{Question 30}
