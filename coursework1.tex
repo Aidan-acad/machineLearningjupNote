@@ -66,11 +66,11 @@ For a spherical distribution, the L2 norm is just a straight line - there is onl
 \section*{Question 6}
 \subsection*{Deriving the posterior over the parameters}
 The posterior takes the form, \( (W \mid X, Y) \propto P(Y \mid W, X) \times P(W) \). Our prior is \( N(w_{0} ,\tau^{2} I) \), and our likelihood was defined in question 3. Thus to get our posterior \( N(w', a) \) we multiply the exponential forms of these together and simplify to reach Gaussian form, the exponent of this will reach a form A+B+C, where A is a constant term, B is a mixed term, and C has a quadratic in the parameters. We can then extract the mean from B by completing the square, then we use the schur complement to extract the variance from the entire exponent. The Z term normalises the function so that it becomes a distribution, i.e. sums to 1.  \\
-This can be visualised as a line between the two means on a graph, example on the final page of my notebook.
+This can be visualised as a line between the two means on a graph.
 
 \section*{Question 7}
 \subsection*{What is a non-parametric model. What is the difference between parametric and non parametric models?}
-Parametric models assume that our parameters are finite in number; this inherently bounds the complexity of the model even if the amount of data provided is unbounded. This means they lack flexibility! However, they?re easier to interpret as they?re generally much simpler models. \\
+Parametric models assume that our parameters are finite in number; this inherently bounds the complexity of the model even if the amount of data provided is unbounded. This means they lack flexibility! However, they're easier to interpret as they're generally much simpler models. \\
 Non-parametric models assume that the data distribution cannot be defined by a finite set of parameters; instead they are defined assuming an infinite dimensional dataset. The amount of data this model can capture increases as the quantity of data does, which makes them much more flexible. They are harder to interpret than parametric models, as it is over infinite space so cannot always be expressed.
 
 \section*{Question 8}
@@ -253,6 +253,8 @@ The output is of a spiral form as we are plotting \(sin\) against \(cos\). The x
 \subsection*{Why is it the simplest model and what does it imply?}
 This assumption implies that each of the 512 elements have an equal probability of occurring.
 This is the simplest possible model because we're just assuming that none of the elements are unique, all of them have the exact same probability of occurring and thus our calculation ought to be simple.
+\subsection*{Why is it the most complex model?}
+It is the most complex model as it attempts to spread the probability mass over the entire dataset space because it places a uniform probability mass over the entire space. This could be an issue as it can penalised by Bayes Rule.
 
 \section*{Question 30}
 \subsection*{What have we learnt?}
